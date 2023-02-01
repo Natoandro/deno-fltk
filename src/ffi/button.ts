@@ -6,4 +6,12 @@ export default {
     parameters: ["pointer", "function"],
     result: "void",
   },
+  button_set_title: {
+    parameters: ["pointer", "buffer"],
+    result: "void",
+  },
+  button_set_damage: {
+    parameters: ["pointer", "u8"],
+    result: "void",
+  },
 } as const;

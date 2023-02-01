@@ -2,7 +2,7 @@ import { App } from "@lib/app.ts";
 import { Window } from "@lib/window.ts";
 import { Button } from "@lib/button.ts";
 import { createEvent } from "@lib/event.ts";
-
+import { map, scan, startWith, tap } from "rxjs";
 
 const app = App();
 
@@ -11,12 +11,18 @@ const win = Window({ pos: [100, 100], size: [400, 300], title: "Hello" });
 win.setup(() => {
   const $click = createEvent();
   $click.subscribe(() => console.log("Hello! You clicked the button!"));
+  const $title = $click.pipe(
+    startWith(),
+    scan((count) => count + 1, 0),
+    tap((count) => console.log(`You clicked ${count} times!`)),
+    map((count) => `Click me ! (${count})`),
+  );
 
   return (
     <Button
-      title="Click me"
-      pos={[160, 220]}
-      size={[80, 30]}
+      title={$title}
+      pos={[120, 220]}
+      size={[160, 30]}
       onClick={$click}
     />
   );

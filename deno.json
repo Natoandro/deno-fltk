@@ -12,7 +12,10 @@
   },
   "fmt": {
     "files": {
-      "include": ["src/", "dev/"]
+      "include": ["src/", "dev/", "examples/"]
+    },
+    "options": {
+      "lineWidth": 80
     }
   },
   "tasks": {
