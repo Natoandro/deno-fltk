@@ -5,6 +5,7 @@ import { Event } from "./event.ts";
 import { eventCallback } from "./utils.ts";
 import { map, Observable, of } from "rxjs";
 import * as sync from "@lib/sync.ts";
+import { update } from "./app.ts";
 
 interface ButtonProps {
   title: string | Observable<string>;
@@ -24,7 +25,7 @@ export function Button(props: ButtonProps): JsxElement {
     title = t;
     if (mounted != null) {
       ffi.button_set_title(mounted, title);
-      // ffi.button_set_damage(mounted, 10);
+      update();
     }
   });
 
