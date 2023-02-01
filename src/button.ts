@@ -1,12 +1,14 @@
 import ffi from "ffi";
 import { JsxElement } from "./runtime.ts";
 import { encodeString } from "./utils/ffi.ts";
+import { Event } from "./event.ts";
+import { eventCallback } from "./utils.ts";
 
 interface ButtonProps {
   title: string;
   pos?: [number, number];
   size?: [number, number];
-  onClick?: () => void;
+  onClick?: Event | (() => void);
 }
 
 export function Button(props: ButtonProps): JsxElement {
@@ -20,7 +22,7 @@ export function Button(props: ButtonProps): JsxElement {
     if (props.onClick != null) {
       const cb = new Deno.UnsafeCallback(
         { parameters: [], result: "void" },
-        props.onClick,
+        eventCallback(props.onClick),
       );
       ffi.button_set_callback(p, cb.pointer);
     }

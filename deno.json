@@ -7,7 +7,8 @@
     "jsx/jsx-runtime": "./src/runtime.ts",
     "@lib/": "./src/",
     "std/": "https://deno.land/std@0.175.0/",
-    "ffi": "./src/ffi/mod.ts"
+    "ffi": "./src/ffi/mod.ts",
+    "rxjs": "https://deno.land/x/rxjs@v1.0.2/mod.ts"
   },
   "fmt": {
     "files": {
