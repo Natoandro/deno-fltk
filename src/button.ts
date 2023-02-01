@@ -45,5 +45,5 @@ export function Button(props: ButtonProps): JsxElement {
 
   const end = (_p: Deno.PointerValue) => {};
 
-  return new JsxElement(mount, end);
+  return new JsxElement("Button", mount, end);
 }

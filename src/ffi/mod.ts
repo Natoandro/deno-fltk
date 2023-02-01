@@ -2,6 +2,7 @@ import { dirname, fromFileUrl, resolve } from "std/path/mod.ts";
 
 import app from "./app.ts";
 import button from "./button.ts";
+import group from "./group.ts";
 import sync from "./sync.ts";
 import window from "./window.ts";
 
@@ -11,6 +12,7 @@ const libName = resolve(thisDir, "../../target/debug/libffi.so");
 const dylib = Deno.dlopen(libName, {
   ...app,
   ...button,
+  ...group,
   ...sync,
   ...window,
 });

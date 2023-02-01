@@ -1,5 +1,6 @@
 mod app;
 mod button;
+mod group;
 mod sync;
 mod window;
 

@@ -2,24 +2,13 @@ export interface Component<P> {
   (props: P): JsxElement;
 }
 
-interface WidgetBaseProps {
-  create: () => Deno.PointerValue;
-  end: (p: Deno.PointerValue) => void;
-  children: Array<JsxElement>;
-}
-
-export function WidgetBase(
-  { create, end, children }: WidgetBaseProps,
-): JsxElement {
-  return new JsxElement(create, end, children);
-}
-
 export function jsx<P>(component: Component<P>, props: P): JsxElement {
   return component(props);
 }
 
 export class JsxElement {
   constructor(
+    private name: string,
     private mount: () => Deno.PointerValue,
     private end: (p: Deno.PointerValue) => void,
     private children: Array<JsxElement> = [],
@@ -31,3 +20,17 @@ export class JsxElement {
     this.end(p);
   }
 }
+
+export type Children = null | JsxElement | JsxElement[];
+
+export function childList(children: Children): JsxElement[] {
+  if (children == null) {
+    return [];
+  }
+  if (!Array.isArray(children)) {
+    return [children];
+  }
+  return children;
+}
+
+export const jsxs = jsx;
