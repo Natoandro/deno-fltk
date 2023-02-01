@@ -4,7 +4,7 @@ import { Window } from "@lib/window.ts"
 
 const app = App();
 
-const win = Window({ pos: [100, 100], size: [400, 300], title: "Window" });
+const win = Window({ pos: [100, 100], size: [400, 300], title: "Hello" });
 win.show();
 
 await app.run();
