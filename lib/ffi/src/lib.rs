@@ -1,4 +1,5 @@
 mod app;
+mod button;
 mod window;
 
 #[macro_export]

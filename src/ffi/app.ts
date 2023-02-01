@@ -3,6 +3,10 @@ export default {
     parameters: [],
     result: "void",
   },
+  app_sync: {
+    parameters: [],
+    result: "void",
+  },
   app_run: {
     parameters: [],
     result: "void",

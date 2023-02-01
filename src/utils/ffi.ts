@@ -1,3 +1,7 @@
+const c = [];
+
 export function encodeString(str: string) {
-  return new TextEncoder().encode(str + "\0");
+  const buffer = new TextEncoder().encode(str + "\0");
+  c.push(buffer);
+  return buffer;
 }

@@ -1,23 +1,15 @@
 import ffi from "ffi";
-import { encodeString } from "./utils/ffi.ts";
+import { expandWidgetInit, WidgetInit } from "./types.ts";
 
-interface WindowInit {
-  pos: [number, number];
-  size: [number, number];
-  title: string;
-}
-
-export function Window({ pos, size, title }: WindowInit) {
-  const pointer = ffi.window_create(
-    pos[0],
-    pos[1],
-    size[0],
-    size[1],
-    encodeString(title),
-  );
+export function Window(init: WidgetInit) {
+  const pointer = ffi.window_create(...expandWidgetInit(init));
   return {
     show() {
       ffi.window_show(pointer);
+    },
+    setup(fn: () => void) {
+      fn();
+      ffi.window_end(pointer);
     },
   };
 }

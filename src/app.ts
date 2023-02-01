@@ -5,6 +5,9 @@ export function App() {
 
   return {
     async run() {
+      setInterval(() => {
+        ffi.app_sync();
+      }, 0);
       await ffi.app_run();
     },
   };
