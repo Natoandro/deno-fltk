@@ -1,0 +1,15 @@
+{
+  "imports": {
+    "@lib/": "./src/",
+    "std/": "https://deno.land/std@0.175.0/",
+    "ffi": "./src/ffi/mod.ts"
+  },
+  "fmt": {
+    "files": {
+      "include": ["src/", "dev/"]
+    }
+  },
+  "tasks": {
+    "ex": "deno run -A dev/example.ts"
+  }
+}

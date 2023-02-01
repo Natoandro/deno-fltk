@@ -1,0 +1,25 @@
+{
+  "name": "",
+  "littleEndian": false,
+  "symbols": {
+    "init": { "parameters": [], "result": "void", "nonBlocking": false },
+    "window_create": {
+      "parameters": [{ "structenum": { "ident": "WindowInit" } }],
+      "result": "ptr",
+      "nonBlocking": false
+    },
+    "run": { "parameters": [], "result": "void", "nonBlocking": false }
+  },
+  "typeDefs": {
+    "WindowInit": {
+      "y": "i32",
+      "title": "String",
+      "height": "i32",
+      "x": "i32",
+      "width": "i32"
+    }
+  },
+  "tsTypes": {
+    "WindowInit": "export type WindowInit = {\n    x: number;\n  y: number;\n  width: number;\n  height: number;\n  title: string;\n};"
+  }
+}
