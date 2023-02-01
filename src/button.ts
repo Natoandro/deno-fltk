@@ -1,27 +1,34 @@
 import ffi from "ffi";
-import { expandWidgetInit, WidgetInit } from "./types.ts";
+import { JsxElement } from "./runtime.ts";
+import { encodeString } from "./utils/ffi.ts";
 
-interface IButton {
-  setCallback(handler: (bt: IButton) => void): void;
+interface ButtonProps {
+  title: string;
+  pos?: [number, number];
+  size?: [number, number];
+  onClick?: () => void;
 }
 
-export function Button(init: WidgetInit) {
-  console.log({ init });
-  const pointer = ffi.button_create(...expandWidgetInit(init));
-  const button: IButton = {
-    setCallback(handler: (bt: typeof button) => void) {
-      const callback = new Deno.UnsafeCallback({
-        parameters: [],
-        result: "void",
-      }, () => {
-        handler(button);
-      });
+export function Button(props: ButtonProps): JsxElement {
+  const title = encodeString(props.title);
+  const [x, y] = props.pos ?? [0, 0];
+  const [w, h] = props.size ?? [0, 0];
 
-      ffi.button_set_callback(
-        pointer,
-        callback.pointer,
+  const mount = () => {
+    const p = ffi.button_create(x, y, w, h, title);
+
+    if (props.onClick != null) {
+      const cb = new Deno.UnsafeCallback(
+        { parameters: [], result: "void" },
+        props.onClick,
       );
-    },
+      ffi.button_set_callback(p, cb.pointer);
+    }
+
+    return p;
   };
-  return button;
+
+  const end = (_p: Deno.PointerValue) => {};
+
+  return new JsxElement(mount, end);
 }

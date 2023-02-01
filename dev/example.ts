@@ -8,7 +8,7 @@ if (!status.success) {
 }
 
 const ex = Deno.run({
-  cmd: ["deno", "run", "-A", "--unstable", `examples/${Deno.args[0]}.ts`],
+  cmd: ["deno", "run", "-A", "--unstable", `examples/${Deno.args[0]}.tsx`],
 });
 
 const exStatus = await ex.status();

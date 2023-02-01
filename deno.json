@@ -1,5 +1,10 @@
 {
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "jsx"
+  },
   "imports": {
+    "jsx/jsx-runtime": "./src/runtime.ts",
     "@lib/": "./src/",
     "std/": "https://deno.land/std@0.175.0/",
     "ffi": "./src/ffi/mod.ts"

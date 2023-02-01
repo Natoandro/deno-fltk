@@ -1,4 +1,5 @@
 import ffi from "ffi";
+import { JsxElement } from "./runtime.ts";
 import { expandWidgetInit, WidgetInit } from "./types.ts";
 
 export function Window(init: WidgetInit) {
@@ -7,8 +8,9 @@ export function Window(init: WidgetInit) {
     show() {
       ffi.window_show(pointer);
     },
-    setup(fn: () => void) {
-      fn();
+    setup(fn: () => JsxElement) {
+      const el = fn();
+      el.render();
       ffi.window_end(pointer);
     },
   };
