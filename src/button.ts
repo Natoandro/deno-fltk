@@ -4,6 +4,7 @@ import { encodeString } from "./utils/ffi.ts";
 import { Event } from "./event.ts";
 import { eventCallback } from "./utils.ts";
 import { map, Observable, of } from "rxjs";
+import * as sync from "@lib/sync.ts";
 
 interface ButtonProps {
   title: string | Observable<string>;
@@ -30,17 +31,12 @@ export function Button(props: ButtonProps): JsxElement {
   const [x, y] = props.pos ?? [0, 0];
   const [w, h] = props.size ?? [0, 0];
 
-  let cb: Deno.UnsafeCallback<{ parameters: []; result: "void" }> | null = null;
-
   const mount = () => {
     mounted = ffi.button_create(x, y, w, h, title);
 
     if (props.onClick != null) {
-      cb = new Deno.UnsafeCallback(
-        { parameters: [], result: "void" },
-        eventCallback(props.onClick),
-      );
-      ffi.button_set_callback(mounted, cb!.pointer);
+      const eCode = sync.register(eventCallback(props.onClick));
+      ffi.button_set_callback(mounted, eCode);
     }
 
     return mounted;

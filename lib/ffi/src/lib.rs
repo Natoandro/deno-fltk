@@ -1,5 +1,6 @@
 mod app;
 mod button;
+mod sync;
 mod window;
 
 #[macro_export]
